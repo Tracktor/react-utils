@@ -3,10 +3,10 @@
 **A React utils library**
 
 - [Installation](#Installation)
-- [Convention](#Convention)
 - [Usage](#Usage)
 - [Hook](#Hook)
-- [Utils functions](#Utils-functions)
+- [Utils](#Utils)
+- [Convention](#Convention)
 
 ## Features
 
@@ -46,7 +46,7 @@ const App = () => {
 `useWindowSize()`  
 `useEventListener()`
 
-## Utils functions
+## Utils
 `removeObjectProperty()`
 
 
