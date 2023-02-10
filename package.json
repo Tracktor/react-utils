@@ -1,0 +1,61 @@
+{
+  "name": "@tracktor/react-utils",
+  "description": "React data table and react data grid",
+  "version": "1.0.0",
+  "private": false,
+  "license": "ISC",
+  "type": "module",
+  "types": "dist/main.d.ts",
+  "main": "dist/main.umd.cjs",
+  "module": "dist/main.js",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Tracktor/react-utils.git"
+  },
+  "author": "Mickaël Austoni",
+  "bugs": {
+    "url": "https://github.com/Tracktor/react-utils/issues"
+  },
+  "homepage": "https://github.com/Tracktor/react-utils#readme",
+  "exports": {
+    ".": {
+      "import": "./dist/main.js",
+      "require": "./dist/main.umd.cjs"
+    }
+  },
+  "scripts": {
+    "coverage": "vitest run --coverage",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --max-warnings=0 && tsc --noEmit",
+    "preview": "vite preview",
+    "test": "vitest",
+    "prepare": "yarn run build && husky install"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@vitejs/plugin-react": "^3.1.0",
+    "eslint-config-react-tracktor": "^1.0.5",
+    "husky": "^8.0.3",
+    "jsdom": "^20.0.3",
+    "typescript": "^4.9.4",
+    "vite": "^4.1.1",
+    "vite-plugin-dts": "^1.7.2",
+    "vitest": "^0.28.4"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  }
+}
