@@ -37,6 +37,9 @@ const App = () => {
 ```
 
 ## Hook
+`useLocalStorage()`  
+`useIsMounted()`  
+`useIntersectionObserver()`  
 `useDebounce()`  
 `useToggle()`  
 `useScript()`  
@@ -47,6 +50,12 @@ const App = () => {
 `useEventListener()`
 
 ## Utils
+`isObject()`  
+`isRef()`  
+`isBoolean()`  
+`isNumber()`  
+`isString()`  
+`isFunction()`  
 `removeObjectProperty()`
 
 
