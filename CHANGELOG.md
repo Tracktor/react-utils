@@ -1,4 +1,5 @@
 # [Versions](https://github.com/Tracktor/react-utils/releases)
 
-## v1.1.2
-- Improved `useInputState` type
+## v1.2.0
+- Improve `useInputState` hook
+- Add util function `formatCreditCardNumber`

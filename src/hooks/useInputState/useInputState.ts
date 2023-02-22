@@ -8,7 +8,7 @@ const useInputState = <T, EVENT = ChangeEvent<HTMLInputElement>>(initialState: T
   const [state, setState] = useState<T>(initialState);
 
   const setInputState = useCallback((event: EVENT | any) => {
-    if (event?.target?.value) {
+    if ("target" in event && "value" in event.target) {
       return setState(event?.target?.value);
     }
 
