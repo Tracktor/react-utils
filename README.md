@@ -50,6 +50,7 @@ const App = () => {
 `useEventListener()`
 
 ## Utils
+`formatCreditCardNumber()`  
 `isObject()`  
 `isRef()`  
 `isBoolean()`  

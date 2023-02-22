@@ -37,3 +37,5 @@ export { default as isNumber } from "@/utils/is/isNumber";
 export * from "@/utils/is/isNumber";
 export { default as isString } from "@/utils/is/isString";
 export * from "@/utils/is/isString";
+export { default as formatCreditCardNumber } from "@/utils/format/formatCreditCardNumber";
+export * from "@/utils/format/formatCreditCardNumber";
