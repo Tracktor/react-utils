@@ -57,7 +57,8 @@ const App = () => {
 `isNumber()`  
 `isString()`  
 `isFunction()`  
-`removeObjectProperty()`
+`removeObjectProperty()`  
+`getInitials()`  
 
 
 ## Convention
