@@ -1,24 +1,18 @@
 /**
  * Function format string value to credit card number for react input
  * @param creditCardNumber
+ * @param maxLength
  */
-export const formatCreditCardNumber = (creditCardNumber: string | number): string => {
-  const value = String(creditCardNumber)
-    .replace(/\s+/g, "")
-    .replace(/[^0-9]/gi, "");
-  const matches = value.match(/\d{4,16}/g);
-  const match = (matches && matches[0]) || "";
-  const parts = [];
+export const formatCreditCardNumber = (creditCardNumber: string | number, maxLength = 19): string => {
+  const value = String(creditCardNumber);
+  const valueWithoutDigit = value.replace(/\D/g, "");
+  const valueWithSpaceAfterEveryFourthDigit = valueWithoutDigit.replace(/(\d{4})(?=\d)/g, "$1 ");
 
-  for (let i = 0, len = match.length; i < len; i += 4) {
-    parts.push(match.substring(i, i + 4));
+  if (valueWithSpaceAfterEveryFourthDigit.length > maxLength) {
+    return valueWithSpaceAfterEveryFourthDigit.slice(0, maxLength);
   }
 
-  if (parts.length) {
-    return parts.join(" ");
-  }
-
-  return value;
+  return valueWithSpaceAfterEveryFourthDigit;
 };
 
 export default formatCreditCardNumber;
