@@ -9,10 +9,11 @@ const useInputState = <T, EVENT = ChangeEvent<HTMLInputElement>>(initialState: T
 
   const setInputState = useCallback((event: EVENT | any) => {
     if ("target" in event && "value" in event.target) {
-      return setState(event?.target?.value);
+      setState(event.target.type === "checkbox" ? event.target.checked : event?.target.value);
+      return;
     }
 
-    throw new Error("No value found in event.target.value");
+    throw new Error("No value found in event");
   }, []);
 
   return [state, setInputState];

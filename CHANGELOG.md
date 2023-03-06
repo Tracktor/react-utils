@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/react-utils/releases)
 
-## v1.5.1
-- Improve `formatCreditCardNumber` function
+## v1.6.0
+- Improve `useInputState` hook to allow checkbox inputs to be controlled
