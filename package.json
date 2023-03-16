@@ -13,7 +13,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/Tracktor/react-utils.git"
+    "url": "git@github.com/Tracktor/react-utils.git"
   },
   "author": "Mickaël Austoni",
   "bugs": {
