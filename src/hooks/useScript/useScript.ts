@@ -4,15 +4,16 @@ export type UseScriptStatus = "idle" | "loading" | "ready" | "error";
 export type UseScriptScriptElement = HTMLScriptElement | null;
 
 /**
- * Hook to load a script
+ * This hook loads a script tag into the DOM and returns the status of the script.
  * @param src
+ * @param enable
  */
-const useScript = (src: string): UseScriptStatus => {
+const useScript = (src: string, enable = true): UseScriptStatus => {
   const [status, setStatus] = useState<UseScriptStatus>(src ? "loading" : "idle");
 
   useEffect(
     () => {
-      if (!src) {
+      if (!src || !enable) {
         setStatus("idle");
         return undefined;
       }
@@ -62,7 +63,7 @@ const useScript = (src: string): UseScriptStatus => {
         }
       };
     },
-    [src] // Only re-run effect if script src changes
+    [enable, src] // Only re-run effect if script src changes or enable changes
   );
 
   return status;

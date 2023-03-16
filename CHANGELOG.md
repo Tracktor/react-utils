@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/react-utils/releases)
 
-## v1.6.0
-- Improve `useInputState` hook to allow checkbox inputs to be controlled
+## v1.7.0
+- Add `enable` param to `useScript` hook
