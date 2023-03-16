@@ -1,5 +1,7 @@
 #  Tracktor React Utils 
 
+[![npm version](https://badge.fury.io/js/@tracktor%2Freact-utils.svg)](https://badge.fury.io/js/@tracktor%2Freact-utils)
+
 **A React utils library**
 
 - [Installation](#Installation)
