@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef } from "react";
 /**
  * This hook return boolean of mounted component
  */
-function useIsMounted() {
+const useIsMounted = () => {
   const isMounted = useRef<boolean>(false);
 
   useEffect(() => {
@@ -15,6 +15,6 @@ function useIsMounted() {
   }, []);
 
   return useCallback(() => isMounted.current, []);
-}
+};
 
 export default useIsMounted;
