@@ -20,21 +20,21 @@ const parseJSON = <T>(value: string | null): T | undefined => {
   }
 };
 
-const useLocalStorage = <T>(key: string, defaultValue: T): [T, SetValue<T>] => {
+const useLocalStorage = <T>(key: string, defaultValue?: T): [T, SetValue<T>] => {
   // Get from local storage then
   // parse stored json or return initialValue
   const readValue = useCallback((): T => {
     // Prevent build error "window is undefined" but keeps working
     if (typeof window === "undefined") {
-      return defaultValue;
+      return defaultValue ?? (null as T);
     }
 
     try {
       const item = window.localStorage.getItem(key);
-      return item ? (parseJSON(item) as T) : defaultValue;
+      return item ? (parseJSON(item) as T) : defaultValue ?? (null as T);
     } catch (error) {
       console.warn(`Error reading localStorage key “${key}”:`, error);
-      return defaultValue;
+      return defaultValue ?? (null as T);
     }
   }, [defaultValue, key]);
 
