@@ -138,6 +138,12 @@ describe("useLocalStorage()", () => {
     expect(result.current[1] === originalCallback).toBe(true);
   });
 
+  test("initial state empty string return string", () => {
+    const { result } = renderHook(() => useLocalStorage("test", ""));
+
+    expect(result.current[0]).toBe("");
+  });
+
   test("without initial state", () => {
     const { result } = renderHook(() => useLocalStorage("test"));
 
