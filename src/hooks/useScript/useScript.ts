@@ -14,7 +14,7 @@ export interface UseScriptOptions {
  * @param options
  */
 const useScript = (src: string, options?: UseScriptOptions): UseScriptStatus => {
-  const { enable = true, position = "body-end" } = options || {};
+  const { enable = true, position = "body-end" } = { ...options };
   const [status, setStatus] = useState<UseScriptStatus>(src ? "loading" : "idle");
 
   useEffect(

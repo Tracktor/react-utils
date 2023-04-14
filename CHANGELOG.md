@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/react-utils/releases)
 
-## v1.9.1
-- **[fix]** : useScript - set options to optional
+## v1.9.2
+- **[fix]** : minor fix
