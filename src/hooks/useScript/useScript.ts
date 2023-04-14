@@ -13,7 +13,7 @@ export interface UseScriptOptions {
  * @param src
  * @param options
  */
-const useScript = (src: string, options: UseScriptOptions): UseScriptStatus => {
+const useScript = (src: string, options?: UseScriptOptions): UseScriptStatus => {
   const { enable = true, position = "body-end" } = options || {};
   const [status, setStatus] = useState<UseScriptStatus>(src ? "loading" : "idle");
 
