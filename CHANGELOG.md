@@ -1,4 +1,5 @@
 # [Versions](https://github.com/Tracktor/react-utils/releases)
 
-## v1.9.2
-- **[fix]** : minor fix
+## v1.2.0
+- **[feat]** : add `addressToString` util function
+- **[improvement]** : `getInitials` function

@@ -52,7 +52,6 @@ const App = () => {
 `useEventListener()`
 
 ## Utils
-`formatCreditCardNumber()`  
 `isObject()`  
 `isRef()`  
 `isBoolean()`  
@@ -60,8 +59,12 @@ const App = () => {
 `isString()`  
 `isFunction()`  
 `removeObjectProperty()`  
-`getInitials()`  
 
+
+### Adapter
+`addressToString()`  
+`formatCreditCardNumber()`  
+`getInitials()`
 
 ## Convention
 

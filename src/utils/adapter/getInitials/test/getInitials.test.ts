@@ -16,4 +16,14 @@ describe("formatCreditCardNumber", () => {
     const initial = getInitials({ fullName: "John Doe San" });
     expect(initial).toEqual("JD");
   });
+
+  test("with only first name", () => {
+    const initial = getInitials({ firstName: "John" });
+    expect(initial).toEqual("J");
+  });
+
+  test("with only last name", () => {
+    const initial = getInitials({ firstName: "Doe" });
+    expect(initial).toEqual("D");
+  });
 });
