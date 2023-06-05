@@ -1,9 +1,9 @@
 interface AddressAdapterParams {
-  streetNumber?: string | number;
-  route?: string;
-  postalCode?: string;
-  city?: string;
-  country?: string;
+  streetNumber?: string | number | null;
+  route?: string | null;
+  postalCode?: string | null;
+  city?: string | null;
+  country?: string | null;
 }
 
 function getAddressLine1(address: AddressAdapterParams) {
