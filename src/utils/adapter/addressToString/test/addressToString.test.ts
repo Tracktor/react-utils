@@ -76,7 +76,16 @@ describe("formatCreditCardNumber", () => {
 
   test("with undefined address", () => {
     const address = addressToString(undefined);
-
     expect(address).toBe("");
+  });
+
+  test("with city, route and streetNumber but without postalCode", () => {
+    const address = addressToString({
+      city: "VILLEURBANNE",
+      route: "DOC ROLLET",
+      streetNumber: "21",
+    });
+
+    expect(address).toBe("21 DOC ROLLET, VILLEURBANNE");
   });
 });

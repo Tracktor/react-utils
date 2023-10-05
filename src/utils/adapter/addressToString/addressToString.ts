@@ -17,7 +17,7 @@ function getAddressLine1(address: AddressAdapterParams) {
 }
 
 function getAddressLine2(address: AddressAdapterParams) {
-  const postalCode = address.city ? `${address.postalCode || ""} ` : `${address.postalCode || ""}`;
+  const postalCode = address.city && address.postalCode ? `${address.postalCode || ""} ` : `${address.postalCode || ""}`;
   const city = address.city || "";
   const line3 = getAddressLine3(address);
   const end = (address.postalCode || address.city) && line3 ? ", " : "";
