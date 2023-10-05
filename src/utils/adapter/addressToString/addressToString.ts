@@ -35,7 +35,11 @@ function getAddressLine3(address: AddressAdapterParams) {
  * Function format string value to address
  * @param address
  */
-export const addressToString = (address: AddressAdapterParams): string => {
+export const addressToString = (address?: AddressAdapterParams): string => {
+  if (!address) {
+    return "";
+  }
+
   const line1 = getAddressLine1(address);
   const line2 = getAddressLine2(address);
   const line3 = getAddressLine3(address);

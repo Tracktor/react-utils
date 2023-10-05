@@ -73,4 +73,10 @@ describe("formatCreditCardNumber", () => {
 
     expect(address).toBe("82 Chemin de cafon 2, France");
   });
+
+  test("with undefined address", () => {
+    const address = addressToString(undefined);
+
+    expect(address).toBe("");
+  });
 });
