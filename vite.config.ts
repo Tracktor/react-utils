@@ -21,7 +21,12 @@ export default defineConfig({
       },
     },
   },
-  plugins: [dts(), react()],
+  plugins: [
+    dts({
+      exclude: ["**/*.test.ts", "**/*.test.tsx", "src/App.tsx", "src/test.config.ts"],
+    }),
+    react(),
+  ],
   resolve: {
     alias: [
       { find: "@", replacement: resolve(__dirname, "src") },
@@ -29,12 +34,8 @@ export default defineConfig({
     ],
   },
   test: {
-    coverage: {
-      exclude: ["node_modules/", "src/config/setupTests.ts"],
-      reporter: ["text", "html"],
-    },
     environment: "jsdom",
     globals: true,
-    setupFiles: "src/config/setupTests.ts",
+    setupFiles: "src/test.config.ts",
   },
 });

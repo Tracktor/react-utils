@@ -81,7 +81,7 @@ const useScript = (src: string, options?: UseScriptOptions): UseScriptStatus => 
         }
       };
     },
-    [enable, position, src] // Only re-run effect if script src changes or enable changes
+    [enable, position, src], // Only re-run effect if script src changes or enable changes
   );
 
   return status;

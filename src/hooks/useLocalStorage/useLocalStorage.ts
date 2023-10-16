@@ -79,7 +79,7 @@ const useLocalStorage = <T>(key: string, defaultValue?: T): [T, SetValue<T>] => 
       }
       setStoredValue(readValue());
     },
-    [key, readValue]
+    [key, readValue],
   );
 
   // this only works for other documents, not the current one
