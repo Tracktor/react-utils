@@ -43,3 +43,5 @@ export { default as getInitials } from "@/utils/adapter/getInitials";
 export * from "@/utils/adapter/getInitials";
 export { default as addressToString } from "@/utils/adapter/addressToString";
 export * from "@/utils/adapter/addressToString";
+export { default as priceAdapter } from "@/utils/adapter/priceAdapter";
+export * from "@/utils/adapter/priceAdapter";

@@ -10,16 +10,6 @@
 - [Utils](#Utils)
 - [Convention](#Convention)
 
-## Features
-
-- 📦 **[React](https://fr.reactjs.org)** - v18+ with Hooks
-- ⚡️ **[Vite](https://vitejs.dev)** - Next Generation Frontend Tooling
-- 📐 **[ESLint](https://eslint.org)** - Code analyzer
-- 🚀 **[Vitest](https://vitest.dev)** - A Vite native unit test framework. It's fast!
-- 🛠️ **[React Testing Library](https://testing-library.com/docs/react-testing-library/intro)** - React DOM testing
-  utilities
-- 🐶 **[Husky](https://typicode.github.io/husky)** - Modern native git hooks made easy
-
 ## Installation
 
 ```console
@@ -64,7 +54,8 @@ const App = () => {
 ### Adapter
 `addressToString()`  
 `formatCreditCardNumber()`  
-`getInitials()`
+`getInitials()`  
+`priceAdapter()`
 
 ## Convention
 
