@@ -18,7 +18,7 @@ const defaultOptions = {
  * @param value
  * @param options @default { local: "fr-FR", currency: "EUR", maximumSignificantDigits: 1, style: "currency" }
  */
-export const priceAdapter = (value?: number, options?: Options) => {
+export const priceAdapter = (value?: number | null, options?: Options) => {
   const { currency, local, maximumSignificantDigits, style } = { ...defaultOptions, ...options };
 
   if (!value) {
