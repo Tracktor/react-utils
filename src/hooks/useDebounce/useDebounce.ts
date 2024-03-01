@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Options {
   delay?: number;
@@ -13,29 +13,22 @@ type Delay = number;
  * @param delayOrOptions
  */
 const useDebounce = <T extends any>(value: T, delayOrOptions?: Delay | Options): T => {
+  const isNumberOption = typeof delayOrOptions === "number";
+  const onDebounceRef = useRef(isNumberOption ? undefined : delayOrOptions?.onDebounce);
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
-
-  const { delay = 500, onDebounce }: Options =
-    typeof delayOrOptions === "number" || !delayOrOptions
-      ? {
-          delay: delayOrOptions,
-          onDebounce: undefined,
-        }
-      : {
-          onDebounce: delayOrOptions?.onDebounce,
-        };
+  const { delay = 500 } = isNumberOption || !delayOrOptions ? { delay: delayOrOptions } : delayOrOptions;
 
   // Debounce the value
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedValue(value);
-      onDebounce?.(value);
+      onDebounceRef.current?.(value);
     }, delay);
 
     return () => {
       clearTimeout(timer);
     };
-  }, [value, delay, onDebounce]);
+  }, [value, delay]);
 
   return debouncedValue;
 };
