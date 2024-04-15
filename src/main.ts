@@ -25,6 +25,8 @@ export * from "@/hooks/useIntersectionObserver";
 // Utils
 export { default as removeObjectProperty } from "@/utils/object/removeObjectProperty";
 export * from "@/utils/object/removeObjectProperty";
+export { default as isArray } from "@/utils/is/isArray";
+export * from "@/utils/is/isArray";
 export { default as isRef } from "@/utils/is/isRef";
 export * from "@/utils/is/isRef";
 export { default as isFunction } from "@/utils/is/isFunction";

@@ -42,6 +42,7 @@ const App = () => {
 `useEventListener()`
 
 ## Utils
+`isArray()`  
 `isObject()`  
 `isRef()`  
 `isBoolean()`  
