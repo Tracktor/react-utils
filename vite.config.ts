@@ -2,7 +2,7 @@ import { resolve } from "path";
 import react from "@vitejs/plugin-react";
 import dts from "vite-plugin-dts";
 import { defineConfig } from "vitest/config";
-import { dependencies, name, peerDependencies } from "./package.json";
+import { name, peerDependencies } from "./package.json";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,7 +13,7 @@ export default defineConfig({
       name,
     },
     rollupOptions: {
-      external: [...Object.keys(dependencies), ...Object.keys(peerDependencies)],
+      external: [...Object.keys(peerDependencies)],
       output: {
         globals: {
           react: "React",
