@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/react-utils/releases)
 
-## v1.13.6
-- **[chore]** : improve dependencies
+## v1.13.7
+- **[chore]** : minor fix
