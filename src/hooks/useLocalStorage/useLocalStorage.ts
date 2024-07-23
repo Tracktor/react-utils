@@ -10,7 +10,7 @@ declare global {
 
 type SetValue<T> = Dispatch<SetStateAction<T>>;
 
-// A wrapper for "JSON.parse()"" to support "undefined" value
+// A wrapper for "JSON.parse()" to support "undefined" value
 const parseJSON = <T>(value: string | null): T | undefined => {
   try {
     return value === "undefined" ? undefined : JSON.parse(value ?? "");
@@ -20,7 +20,7 @@ const parseJSON = <T>(value: string | null): T | undefined => {
   }
 };
 
-const useLocalStorage = <T>(key: string, defaultValue?: T): [T, SetValue<T>] => {
+const useLocalStorage = <T>(key: string, defaultValue?: T): [T, SetValue<T>, () => void] => {
   // Get from local storage then
   // parse stored json or return initialValue
   const readValue = useCallback((): T => {
@@ -67,6 +67,26 @@ const useLocalStorage = <T>(key: string, defaultValue?: T): [T, SetValue<T>] => 
     }
   });
 
+  const removeItem = useEventCallback(() => {
+    // Prevent build error "window is undefined" but keeps working
+    if (typeof window === "undefined") {
+      console.warn(`Tried removing localStorage key “${key}” even though environment is not a client`);
+    }
+
+    try {
+      // Remove from local storage
+      window.localStorage.removeItem(key);
+
+      // Clear state
+      setStoredValue(defaultValue ?? (null as T));
+
+      // We dispatch a custom event so every useLocalStorage hook are notified
+      window.dispatchEvent(new Event("local-storage"));
+    } catch (error) {
+      console.warn(`Error removing localStorage key “${key}”:`, error);
+    }
+  });
+
   useEffect(() => {
     setStoredValue(readValue());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -89,7 +109,7 @@ const useLocalStorage = <T>(key: string, defaultValue?: T): [T, SetValue<T>] => 
   // See: useLocalStorage()
   useEventListener("local-storage", handleStorageChange);
 
-  return [storedValue, setValue];
+  return [storedValue, setValue, removeItem];
 };
 
 export default useLocalStorage;
