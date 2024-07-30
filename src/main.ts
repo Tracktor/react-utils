@@ -47,3 +47,5 @@ export { default as addressToString } from "@/utils/adapter/addressToString";
 export * from "@/utils/adapter/addressToString";
 export { default as priceAdapter } from "@/utils/adapter/priceAdapter";
 export * from "@/utils/adapter/priceAdapter";
+export { default as capitalize } from "@/utils/string/capitalize";
+export * from "@/utils/string/capitalize";
