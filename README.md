@@ -51,6 +51,7 @@ const App = () => {
 `isFunction()`  
 `removeObjectProperty()`  
 `capitalize()`  
+`capitalizeWords()`  
 
 
 ### Adapter
