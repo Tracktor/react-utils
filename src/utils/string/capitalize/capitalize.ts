@@ -1,9 +1,10 @@
 /**
  * Capitalize string
+ * Example: capitalize("hello") -> "Hello"
  * @param string
  */
-const capitalize = (string?: string | null) => {
-  if (!string) {
+const capitalize = (string?: unknown): string => {
+  if (!string || typeof string !== "string") {
     return "";
   }
 

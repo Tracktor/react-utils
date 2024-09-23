@@ -49,3 +49,5 @@ export { default as priceAdapter } from "@/utils/adapter/priceAdapter";
 export * from "@/utils/adapter/priceAdapter";
 export { default as capitalize } from "@/utils/string/capitalize";
 export * from "@/utils/string/capitalize";
+export { default as capitalizeWords } from "@/utils/string/capitalizeWords";
+export * from "@/utils/string/capitalizeWords";

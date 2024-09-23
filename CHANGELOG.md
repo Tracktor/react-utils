@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/react-utils/releases)
 
-## v1.15.0
-- **[feat]** : add remove item to `capitalize`
+## v1.16.0
+- **[feat]** : add util function `capitalizeWords`
