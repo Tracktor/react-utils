@@ -10,13 +10,24 @@ declare global {
 
 type SetValue<T> = Dispatch<SetStateAction<T>>;
 
-// A wrapper for "JSON.parse()" to support "undefined" value
-const parseJSON = <T>(value: string | null): T | undefined => {
-  try {
-    return value === "undefined" ? undefined : JSON.parse(value ?? "");
-  } catch {
-    console.log("parsing error on", { value });
+const parseJSON = <T>(value: string | null): T | undefined | null => {
+  if (value === "undefined") {
     return undefined;
+  }
+
+  if (value === null) {
+    return null;
+  }
+
+  try {
+    // Check if the value is likely a JSON object/array; if not, return as is.
+    if (value.startsWith("{") || value.startsWith("[")) {
+      return JSON.parse(value);
+    }
+    return value === "undefined" ? undefined : JSON.parse(value ?? "");
+  } catch (error) {
+    console.log("parsing error on", { value });
+    return value as unknown as T; // Fallback to returning the value anyway
   }
 };
 
