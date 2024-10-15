@@ -11,23 +11,14 @@ declare global {
 type SetValue<T> = Dispatch<SetStateAction<T>>;
 
 const parseJSON = <T>(value: string | null): T | undefined | null => {
-  if (value === "undefined") {
+  if (value === "undefined" || value === null) {
     return undefined;
   }
 
-  if (value === null) {
-    return null;
-  }
-
   try {
-    // Check if the value is likely a JSON object/array; if not, return as is.
-    if (value.startsWith("{") || value.startsWith("[")) {
-      return JSON.parse(value);
-    }
-    return value === "undefined" ? undefined : JSON.parse(value ?? "");
+    return JSON.parse(value);
   } catch (error) {
-    console.log("parsing error on", { value });
-    return value as unknown as T; // Fallback to returning the value anyway
+    return value as unknown as T;
   }
 };
 
@@ -42,7 +33,12 @@ const useLocalStorage = <T>(key: string, defaultValue?: T): [T, SetValue<T>, () 
 
     try {
       const item = window.localStorage.getItem(key);
-      return item ? (parseJSON(item) as T) : defaultValue ?? (null as T);
+
+      if (item) {
+        return parseJSON(item) as T;
+      }
+
+      return defaultValue ?? (null as T);
     } catch (error) {
       console.warn(`Error reading localStorage key “${key}”:`, error);
       return defaultValue ?? (null as T);

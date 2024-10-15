@@ -94,8 +94,6 @@ describe("useLocalStorage()", () => {
       setState(null);
     });
 
-    console.log(typeof result.current[0]);
-
     expect(result.current[0]).toBeNull();
   });
 
