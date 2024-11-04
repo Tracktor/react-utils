@@ -8,113 +8,114 @@ declare global {
   }
 }
 
+type UseLocalStorageOptions<T> = {
+  serializer?: (value: T) => string;
+  deserializer?: (value: string) => T;
+};
+
 type SetValue<T> = Dispatch<SetStateAction<T>>;
 
-const parseJSON = <T>(value: string | null): T | undefined | null => {
+const LOCAL_STORAGE_CUSTOM_EVENT = "local-storage";
+const IS_SERVER_SIDE = typeof window === "undefined";
+
+const parseJSON = <T>(value: string | null): T | undefined => {
   if (value === "undefined" || value === null) {
     return undefined;
   }
 
   try {
     return JSON.parse(value);
-  } catch (error) {
+  } catch {
     return value as unknown as T;
   }
 };
 
-const useLocalStorage = <T>(key: string, defaultValue?: T): [T, SetValue<T>, () => void] => {
-  // Get from local storage then
-  // parse stored json or return initialValue
+const useLocalStorage = <T>(key: string, initialValue?: T, options?: UseLocalStorageOptions<T>): [T, SetValue<T>, () => void] => {
+  const serializer = useCallback<(value: T) => string>(
+    (value) => (options?.serializer ? options.serializer(value) : JSON.stringify(value)),
+    [options],
+  );
+
+  const deserializer = useCallback<(value: string) => T>(
+    (value) => (options?.deserializer ? options.deserializer(value) : (parseJSON(value) as T)),
+    [options],
+  );
+
   const readValue = useCallback((): T => {
-    // Prevent build error "window is undefined" but keeps working
-    if (typeof window === "undefined") {
-      return defaultValue ?? (null as T);
+    if (IS_SERVER_SIDE) {
+      return initialValue ?? (null as unknown as T);
     }
 
     try {
-      const item = window.localStorage.getItem(key);
-
-      if (item) {
-        return parseJSON(item) as T;
-      }
-
-      return defaultValue ?? (null as T);
-    } catch (error) {
-      console.warn(`Error reading localStorage key “${key}”:`, error);
-      return defaultValue ?? (null as T);
+      const raw = window.localStorage.getItem(key);
+      return raw ? deserializer(raw) : initialValue ?? (null as T);
+    } catch {
+      return initialValue ?? (null as T);
     }
-  }, [defaultValue, key]);
+  }, [key, initialValue, deserializer]);
 
-  // State to store our value
-  // Pass initial state function to useState so logic is only executed once
   const [storedValue, setStoredValue] = useState<T>(readValue);
 
-  // Return a wrapped version of useState's setter function that ...
-  // ... persists the new value to localStorage.
+  /**
+   * Return a wrapped version of useState's setter function that
+   * persists the new value to localStorage.
+   */
   const setValue: SetValue<T> = useEventCallback((value) => {
-    // Prevent build error "window is undefined" but keeps working
-    if (typeof window === "undefined") {
+    if (IS_SERVER_SIDE) {
       console.warn(`Tried setting localStorage key “${key}” even though environment is not a client`);
     }
 
     try {
-      // Allow value to be a function, so we have the same API as useState
       const newValue = value instanceof Function ? value(storedValue) : value;
-
-      // Save to local storage
-      window.localStorage.setItem(key, JSON.stringify(newValue));
-
-      // Save state
+      window.localStorage.setItem(key, serializer(newValue));
       setStoredValue(newValue);
-
-      // We dispatch a custom event so every useLocalStorage hook are notified
-      window.dispatchEvent(new Event("local-storage"));
+      window.dispatchEvent(new CustomEvent(LOCAL_STORAGE_CUSTOM_EVENT, { detail: key }));
     } catch (error) {
       console.warn(`Error setting localStorage key “${key}”:`, error);
     }
   });
 
+  /**
+   * Remove value from local storage
+   */
   const removeItem = useEventCallback(() => {
-    // Prevent build error "window is undefined" but keeps working
-    if (typeof window === "undefined") {
+    if (IS_SERVER_SIDE) {
       console.warn(`Tried removing localStorage key “${key}” even though environment is not a client`);
     }
 
     try {
-      // Remove from local storage
       window.localStorage.removeItem(key);
-
-      // Clear state
-      setStoredValue(defaultValue ?? (null as T));
-
-      // We dispatch a custom event so every useLocalStorage hook are notified
-      window.dispatchEvent(new Event("local-storage"));
+      setStoredValue(initialValue ?? (null as T));
+      window.dispatchEvent(new CustomEvent(LOCAL_STORAGE_CUSTOM_EVENT, { detail: key }));
     } catch (error) {
       console.warn(`Error removing localStorage key “${key}”:`, error);
     }
   });
 
-  useEffect(() => {
-    setStoredValue(readValue());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  /**
+   * Read the value from local storage event
+   */
   const handleStorageChange = useCallback(
     (event: StorageEvent | CustomEvent) => {
-      if ((event as StorageEvent)?.key && (event as StorageEvent).key !== key) {
+      if ("key" in event && event.key !== key) {
         return;
       }
+
       setStoredValue(readValue());
     },
     [key, readValue],
   );
 
-  // this only works for other documents, not the current one
-  useEventListener("storage", handleStorageChange);
+  /**
+   * Set the value in local storage
+   */
+  useEffect(() => {
+    setStoredValue(readValue());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
 
-  // this is a custom event, triggered in writeValueToLocalStorage
-  // See: useLocalStorage()
-  useEventListener("local-storage", handleStorageChange);
+  useEventListener("storage", handleStorageChange);
+  useEventListener(LOCAL_STORAGE_CUSTOM_EVENT, handleStorageChange);
 
   return [storedValue, setValue, removeItem];
 };
