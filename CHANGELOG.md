@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/react-utils/releases)
 
-## v1.16.4
-- **[fix]** : useLocalStorage improvements
+## v1.17.0
+- **[feat]** : add `isDeepEqualObject` function

@@ -52,9 +52,10 @@ const App = () => {
 `removeObjectProperty()`  
 `capitalize()`  
 `capitalizeWords()`  
+`isDeepEqualObject()`  
 
 
-### Adapter
+## Adapter
 `addressToString()`  
 `formatCreditCardNumber()`  
 `getInitials()`  
