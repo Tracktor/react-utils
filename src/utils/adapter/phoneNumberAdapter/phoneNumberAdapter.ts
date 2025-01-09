@@ -5,27 +5,29 @@ interface PhoneNumberAdapterProps {
 }
 
 /**
- * Adapt phone number to local display format with or without prefix.
+ * Adapt phone number to local display format with or without prefix and customizable separator.
  * Supports automatic detection of country code based on the first two digits.
  *
  * Usage examples:
- * - phoneNumberAdapter({ phoneNumber: '0123456789' }) -> 01 23 45 67 89
- * - phoneNumberAdapter({ phoneNumber: '33123456789' }) -> 01 23 45 67 89
- * - phoneNumberAdapter({ phoneNumber: '33123456789', addPrefix: true }) -> +33 1 23 45 67 89
- * - phoneNumberAdapter({ phoneNumber: '441234567890', addPrefix: true }) -> +44 1234 567 890
- * - phoneNumberAdapter({ phoneNumber: '4915123456789' }) -> 0151 234 56789
+ * - phoneNumberAdapter({ phoneNumber: '0123456789' }) -> "01 23 45 67 89"
+ * - phoneNumberAdapter({ phoneNumber: '33123456789' }) -> "01 23 45 67 89"
+ * - phoneNumberAdapter({ phoneNumber: '33123456789', addPrefix: true }) -> "+33 01 23 45 67 89"
+ * - phoneNumberAdapter({ phoneNumber: '441234567890', addPrefix: true }) -> "+44 1234 567 890"
+ * - phoneNumberAdapter({ phoneNumber: '1234567890', separator: '-' }) -> "(123)-456-7890"
+ * - phoneNumberAdapter({ phoneNumber: '349876543210', separator: '.' }) -> "987.654.321"
  *
  * Supported country formats:
- * | Country Code | Country       | Sample Input          | Expected Format      |
- * |--------------|---------------|-----------------------|----------------------|
- * | 33           | France        | 33123456789           | 01 23 45 67 89      |
- * | 44           | United Kingdom | 441234567890          | 1234 567 890        |
- * | 49           | Germany       | 4915123456789         | 0151 234 56789      |
- * | 34           | Spain         | 349876543210          | 987 654 321         |
+ * | Country Code | Country        | Sample Input         | Expected Format       |
+ * |--------------|----------------|----------------------|-----------------------|
+ * | 33           | France         | 33123456789          | 01 23 45 67 89        |
+ * | 44           | United Kingdom | 441234567890         | 1234 567 890          |
+ * | 49           | Germany        | 4915123456789        | 0151 234 56789        |
+ * | 34           | Spain          | 349876543210         | 987 654 321           |
+ * | 1            | United States  | 1234567890           | (123) 456-7890        |
  *
  * @param phoneNumber The phone number to be adapted.
  * @param addPrefix Adds the international prefix (+33, +44, etc.) if enabled. @default false
- * @param separator The separator to be used between the numbers. @default " "
+ * @param separator The character to be used between number groups. @default " "
  * @returns The adapted phone number.
  */
 const phoneNumberAdapter = ({ phoneNumber, addPrefix = false, separator = " " }: PhoneNumberAdapterProps): string => {
@@ -35,8 +37,9 @@ const phoneNumberAdapter = ({ phoneNumber, addPrefix = false, separator = " " }:
     if (validPhoneNumber.startsWith("1")) {
       return "us";
     }
-
     const prefix = validPhoneNumber.slice(0, 2);
+
+    // French phone numbers can start with 0* or 33
     if (validPhoneNumber.startsWith("0")) {
       return "fr";
     }
