@@ -60,6 +60,7 @@ const App = () => {
 `formatCreditCardNumber()`  
 `getInitials()`  
 `priceAdapter()`
+`phoneNumberAdapter()`
 
 ## Convention
 
