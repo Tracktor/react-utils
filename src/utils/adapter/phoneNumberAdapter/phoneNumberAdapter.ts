@@ -29,10 +29,15 @@ const phoneNumberAdapter = ({ phoneNumber, addPrefix = false }: PhoneNumberAdapt
   const validPhoneNumber = phoneNumber.replace(/\D/g, "");
 
   const detectedCountryCode = (() => {
+    if (validPhoneNumber.startsWith("1")) {
+      return "us";
+    }
+
     const prefix = validPhoneNumber.slice(0, 2);
     if (validPhoneNumber.startsWith("0")) {
       return "fr";
     }
+
     switch (prefix) {
       case "33":
         return "fr";
@@ -51,11 +56,11 @@ const phoneNumberAdapter = ({ phoneNumber, addPrefix = false }: PhoneNumberAdapt
     switch (detectedCountryCode) {
       case "fr": {
         const numberWithoutCountryCode = validPhoneNumber.startsWith("33") ? validPhoneNumber.slice(2) : validPhoneNumber;
-
         const localNumber = numberWithoutCountryCode.startsWith("0") ? numberWithoutCountryCode : `0${numberWithoutCountryCode}`;
-
-        const trimmedNumber = localNumber.slice(0, 10); // Limiter à 10 chiffres
-        return trimmedNumber.replace(/(\d{2})(?=\d)/g, "$1 ").trim();
+        return localNumber
+          .slice(0, 10)
+          .replace(/(\d{2})(?=\d)/g, "$1 ")
+          .trim();
       }
       case "uk": {
         const numberWithoutCountryCode = validPhoneNumber.startsWith("44") ? validPhoneNumber.slice(2) : validPhoneNumber;
@@ -70,6 +75,11 @@ const phoneNumberAdapter = ({ phoneNumber, addPrefix = false }: PhoneNumberAdapt
         const numberWithoutCountryCode = validPhoneNumber.startsWith("34") ? validPhoneNumber.slice(2) : validPhoneNumber;
         return numberWithoutCountryCode.slice(0, 9).replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3");
       }
+      case "us": {
+        const numberWithoutCountryCode = validPhoneNumber.length === 11 ? validPhoneNumber.slice(1) : validPhoneNumber;
+        const trimmedNumber = numberWithoutCountryCode.slice(0, 10);
+        return trimmedNumber.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
+      }
       default: {
         return validPhoneNumber.replace(/(\d{2})(?=\d)/g, "$1 ").trim();
       }
@@ -77,7 +87,7 @@ const phoneNumberAdapter = ({ phoneNumber, addPrefix = false }: PhoneNumberAdapt
   })();
 
   if (addPrefix) {
-    const countryCodePrefix = validPhoneNumber.slice(0, 2);
+    const countryCodePrefix = detectedCountryCode === "us" ? "1" : validPhoneNumber.slice(0, 2);
     return `+${countryCodePrefix} ${formattedPhoneNumber}`;
   }
 

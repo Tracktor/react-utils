@@ -40,12 +40,23 @@ describe("phoneNumberAdapter", () => {
   });
 
   it("handles unsupported country codes gracefully", () => {
-    expect(phoneNumberAdapter({ phoneNumber: "1234567890" })).toBe("12 34 56 78 90");
     expect(phoneNumberAdapter({ phoneNumber: "991234567890" })).toBe("99 12 34 56 78 90");
   });
 
   it("handles empty or invalid input gracefully", () => {
     expect(phoneNumberAdapter({ phoneNumber: "" })).toBe("");
     expect(phoneNumberAdapter({ phoneNumber: "abcdef" })).toBe("");
+  });
+
+  it("formats US phone numbers correctly without prefix", () => {
+    expect(phoneNumberAdapter({ phoneNumber: "1234567890" })).toBe("(123) 456-7890");
+  });
+
+  it("formats US phone numbers correctly with prefix", () => {
+    expect(phoneNumberAdapter({ addPrefix: true, phoneNumber: "11234567890" })).toBe("+1 (123) 456-7890");
+  });
+
+  it("handles mixed inputs with US numbers", () => {
+    expect(phoneNumberAdapter({ phoneNumber: "+1-123-456-7890" })).toBe("(123) 456-7890");
   });
 });
