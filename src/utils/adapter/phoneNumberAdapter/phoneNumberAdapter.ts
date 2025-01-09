@@ -1,38 +1,31 @@
-interface PhoneNumberAdapterProps {
-  phoneNumber: string;
-  addPrefix?: boolean;
-  separator?: string;
-}
-
 /**
- * Adapt phone number to local display format with or without prefix and customizable separator.
- * Supports automatic detection of country code based on the first two digits.
+ * Formats a phone number based on its country code or a default French format.
+ *
+ * @param phoneNumber The phone number to format (can include country code).
+ * @param options Optional configuration:
+ *  - `addPrefix` (boolean): Add the international prefix (+33, +44, etc.). Default is `false`.
+ *  - `separator` (string): Character to separate number groups. Default is a space (" ").
+ * @returns The formatted phone number.
  *
  * Usage examples:
- * - phoneNumberAdapter({ phoneNumber: '0123456789' }) -> "01 23 45 67 89"
- * - phoneNumberAdapter({ phoneNumber: '33123456789' }) -> "01 23 45 67 89"
- * - phoneNumberAdapter({ phoneNumber: '33123456789', addPrefix: true }) -> "+33 01 23 45 67 89"
- * - phoneNumberAdapter({ phoneNumber: '441234567890', addPrefix: true }) -> "+44 1234 567 890"
- * - phoneNumberAdapter({ phoneNumber: '1234567890', separator: '-' }) -> "(123)-456-7890"
- * - phoneNumberAdapter({ phoneNumber: '349876543210', separator: '.' }) -> "987.654.321"
+ * - phoneNumberAdapter('0123456789') -> "01 23 45 67 89"
+ * - phoneNumberAdapter('33123456789') -> "01 23 45 67 89"
+ * - phoneNumberAdapter('441234567890', { addPrefix: true }) -> "+44 1234 567 890"
+ * - phoneNumberAdapter('1234567890', { separator: '-' }) -> "(123)-456-7890".
  *
- * Supported country formats:
- * | Country Code | Country        | Sample Input         | Expected Format       |
- * |--------------|----------------|----------------------|-----------------------|
- * | 33           | France         | 33123456789          | 01 23 45 67 89        |
- * | 44           | United Kingdom | 441234567890         | 1234 567 890          |
- * | 49           | Germany        | 4915123456789        | 0151 234 56789        |
- * | 34           | Spain          | 349876543210         | 987 654 321           |
- * | 1            | United States  | 1234567890           | (123) 456-7890        |
- *
- * @param phoneNumber The phone number to be adapted.
- * @param addPrefix Adds the international prefix (+33, +44, etc.) if enabled. @default false
- * @param separator The character to be used between number groups. @default " "
- * @returns The adapted phone number.
+ * @SupportedCountries:
+ * | Country Code | Country        | Expected Format       |
+ * |--------------|----------------|-----------------------|
+ * | 33           | France         | 01 23 45 67 89        |
+ * | 44           | United Kingdom | 1234 567 890          |
+ * | 49           | Germany        | 0151 234 56789        |
+ * | 34           | Spain          | 987 654 321           |
+ * | 1            | United States  | (123) 456-7890        |
  */
-const phoneNumberAdapter = ({ phoneNumber, addPrefix = false, separator = " " }: PhoneNumberAdapterProps): string => {
-  const validPhoneNumber = phoneNumber.replace(/\D/g, "");
+const phoneNumberAdapter = (phoneNumber: string, options: { addPrefix?: boolean; separator?: string } = {}): string => {
+  const { addPrefix = false, separator = " " } = options;
 
+  const validPhoneNumber = phoneNumber.replace(/\D/g, "");
   const detectedCountryCode = (() => {
     if (validPhoneNumber.startsWith("1")) {
       return "us";
