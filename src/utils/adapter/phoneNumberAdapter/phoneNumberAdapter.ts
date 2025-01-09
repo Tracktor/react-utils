@@ -1,6 +1,7 @@
 interface PhoneNumberAdapterProps {
   phoneNumber: string;
   addPrefix?: boolean;
+  separator?: string;
 }
 
 /**
@@ -24,8 +25,10 @@ interface PhoneNumberAdapterProps {
  *
  * @param phoneNumber The phone number to be adapted.
  * @param addPrefix Adds the international prefix (+33, +44, etc.) if enabled. @default false
+ * @param separator The separator to be used between the numbers. @default " "
+ * @returns The adapted phone number.
  */
-const phoneNumberAdapter = ({ phoneNumber, addPrefix = false }: PhoneNumberAdapterProps): string => {
+const phoneNumberAdapter = ({ phoneNumber, addPrefix = false, separator = " " }: PhoneNumberAdapterProps): string => {
   const validPhoneNumber = phoneNumber.replace(/\D/g, "");
 
   const detectedCountryCode = (() => {
@@ -52,36 +55,40 @@ const phoneNumberAdapter = ({ phoneNumber, addPrefix = false }: PhoneNumberAdapt
     }
   })();
 
+  const formatWithSeparator = (str: string) => str.replace(/ /g, separator);
+
   const formattedPhoneNumber = (() => {
     switch (detectedCountryCode) {
       case "fr": {
         const numberWithoutCountryCode = validPhoneNumber.startsWith("33") ? validPhoneNumber.slice(2) : validPhoneNumber;
         const localNumber = numberWithoutCountryCode.startsWith("0") ? numberWithoutCountryCode : `0${numberWithoutCountryCode}`;
-        return localNumber
-          .slice(0, 10)
-          .replace(/(\d{2})(?=\d)/g, "$1 ")
-          .trim();
+        return formatWithSeparator(
+          localNumber
+            .slice(0, 10)
+            .replace(/(\d{2})(?=\d)/g, "$1 ")
+            .trim(),
+        );
       }
       case "uk": {
         const numberWithoutCountryCode = validPhoneNumber.startsWith("44") ? validPhoneNumber.slice(2) : validPhoneNumber;
-        return numberWithoutCountryCode.replace(/(\d{4})(\d{3})(\d{3})/, "$1 $2 $3");
+        return formatWithSeparator(numberWithoutCountryCode.replace(/(\d{4})(\d{3})(\d{3})/, "$1 $2 $3"));
       }
       case "de": {
         const numberWithoutCountryCode = validPhoneNumber.startsWith("49") ? validPhoneNumber.slice(2) : validPhoneNumber;
         const localNumber = numberWithoutCountryCode.startsWith("0") ? numberWithoutCountryCode : `0${numberWithoutCountryCode}`;
-        return localNumber.replace(/(\d{4})(\d{3})(\d{4})/, "$1 $2 $3");
+        return formatWithSeparator(localNumber.replace(/(\d{4})(\d{3})(\d{4})/, "$1 $2 $3"));
       }
       case "es": {
         const numberWithoutCountryCode = validPhoneNumber.startsWith("34") ? validPhoneNumber.slice(2) : validPhoneNumber;
-        return numberWithoutCountryCode.slice(0, 9).replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3");
+        return formatWithSeparator(numberWithoutCountryCode.slice(0, 9).replace(/(\d{3})(\d{3})(\d{3})/, "$1 $2 $3"));
       }
       case "us": {
         const numberWithoutCountryCode = validPhoneNumber.length === 11 ? validPhoneNumber.slice(1) : validPhoneNumber;
         const trimmedNumber = numberWithoutCountryCode.slice(0, 10);
-        return trimmedNumber.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
+        return formatWithSeparator(trimmedNumber.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3"));
       }
       default: {
-        return validPhoneNumber.replace(/(\d{2})(?=\d)/g, "$1 ").trim();
+        return formatWithSeparator(validPhoneNumber.replace(/(\d{2})(?=\d)/g, "$1 ").trim());
       }
     }
   })();

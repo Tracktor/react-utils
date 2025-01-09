@@ -59,4 +59,11 @@ describe("phoneNumberAdapter", () => {
   it("handles mixed inputs with US numbers", () => {
     expect(phoneNumberAdapter({ phoneNumber: "+1-123-456-7890" })).toBe("(123) 456-7890");
   });
+
+  it("formats phone numbers correctly with a custom separator", () => {
+    expect(phoneNumberAdapter({ phoneNumber: "0123456789", separator: "-" })).toBe("01-23-45-67-89");
+    expect(phoneNumberAdapter({ phoneNumber: "33123456789", separator: "." })).toBe("01.23.45.67.89");
+    expect(phoneNumberAdapter({ phoneNumber: "441234567890", separator: "/" })).toBe("1234/567/890");
+    expect(phoneNumberAdapter({ phoneNumber: "1234567890", separator: "·" })).toBe("(123)·456-7890");
+  });
 });
