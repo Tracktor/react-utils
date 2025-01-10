@@ -5,20 +5,20 @@ interface getInitialParamsWithFullName {
 }
 
 interface getInitialParamsWithFirstAndLastName {
-  firstName: string;
-  lastName: string;
+  firstName: string | undefined;
+  lastName: string | undefined;
   fullName?: never;
 }
 
 interface getInitialParamsWithFirstNameOnly {
-  firstName: string;
-  lastName?: string;
+  firstName: string | undefined;
+  lastName?: string | undefined;
   fullName?: never;
 }
 
 interface getInitialParamsWithLastNameOnly {
-  firstName?: string;
-  lastName: string;
+  firstName?: string | undefined;
+  lastName: string | undefined;
   fullName?: never;
 }
 
