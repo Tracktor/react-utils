@@ -26,4 +26,14 @@ describe("formatCreditCardNumber", () => {
     const initial = getInitials({ firstName: "Doe" });
     expect(initial).toEqual("D");
   });
+
+  test("with capitalize option", () => {
+    const initial = getInitials({ firstName: "john", lastName: "doe" }, true);
+    expect(initial).toBe("JD");
+  });
+
+  test("with capitalize false option", () => {
+    const initial = getInitials({ firstName: "john", lastName: "doe" }, false);
+    expect(initial).toBe("jd");
+  });
 });
