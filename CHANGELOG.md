@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/react-utils/releases)
 
-## v1.19.2
-- **[fix]** : `isArray` type
+## v1.20.0
+- **[feat]** : add option priceAdapter to hideDecimals
