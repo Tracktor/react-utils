@@ -1,4 +1,4 @@
-import { describe, expect } from "vitest";
+import { describe, expect, test } from "vitest";
 import priceAdapter from "@/utils/adapter/priceAdapter";
 
 describe("priceAdapter", () => {
@@ -20,5 +20,10 @@ describe("priceAdapter", () => {
   test("with no value", () => {
     const price = priceAdapter();
     expect(price).toBe("0 €");
+  });
+
+  test("with local price with hideDecimalsIfZero", () => {
+    const price = priceAdapter(1000, { hideDecimalsIfZero: true });
+    expect(price).toBe("1 000 €");
   });
 });
