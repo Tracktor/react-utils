@@ -55,3 +55,5 @@ export { default as capitalizeWords } from "@/utils/string/capitalizeWords";
 export * from "@/utils/string/capitalizeWords";
 export { default as isDeepEqualObject } from "@/utils/object/isDeepEqualObject";
 export * from "@/utils/object/isDeepEqualObject";
+export { default as toNumberOrZero } from "@/utils/number/toNumber/toNumberOrZero";
+export * from "@/utils/number/toNumber/toNumberOrZero";
