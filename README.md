@@ -53,13 +53,14 @@ const App = () => {
 `capitalize()`  
 `capitalizeWords()`  
 `isDeepEqualObject()`  
+`toNumberOrZero()`  
 
 
 ## Adapter
 `addressToString()`  
 `formatCreditCardNumber()`  
 `getInitials()`  
-`priceAdapter()`
+`priceAdapter()`  
 `phoneNumberAdapter()`
 
 ## Convention
