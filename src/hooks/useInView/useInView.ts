@@ -36,7 +36,7 @@ export interface UseInViewOptions {
  * @param options - Configuration options for the Intersection Observer
  * @returns Boolean indicating if the element is in view
  */
-export const useInView = (ref: RefObject<Element>, options: UseInViewOptions = {}): boolean => {
+export const useInView = (ref: RefObject<null | Element>, options: UseInViewOptions = {}): boolean => {
   const [isInView, setIsInView] = useState<boolean>(false);
   const { threshold = 0.1, root = null, rootMargin = "0px", triggerOnce = false } = options;
 
