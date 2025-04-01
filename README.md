@@ -39,7 +39,8 @@ const App = () => {
 `useIsomorphicLayoutEffect()`  
 `useDocumentTitle()`  
 `useWindowSize()`  
-`useEventListener()`
+`useEventListener()`  
+`useInView()`
 
 ## Utils
 `isArray()`  

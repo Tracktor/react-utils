@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import useIsomorphicLayoutEffect from "@/hooks/useIsomorphicLayoutEffect";
+import useIsomorphicLayoutEffect from "@/hooks/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect";
 
 /**
  * Use document title

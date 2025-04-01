@@ -1,5 +1,5 @@
 import { useCallback, useRef } from "react";
-import useIsomorphicLayoutEffect from "@/hooks/useIsomorphicLayoutEffect";
+import useIsomorphicLayoutEffect from "@/hooks/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect";
 
 /**
  * Use event callback hook

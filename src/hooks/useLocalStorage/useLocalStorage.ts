@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
-import useEventCallback from "@/hooks/useEventCallback";
-import useEventListener from "@/hooks/useEventListener";
+import useEventCallback from "@/hooks/useEventCallback/useEventCallback";
+import useEventListener from "@/hooks/useEventListener/useEventListener";
 
 declare global {
   interface WindowEventMap {
