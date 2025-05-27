@@ -17,11 +17,17 @@ const defaultOptions = {
  * @param value
  * @param options @default { local: "fr-FR", currency: "EUR", style: "currency" }
  */
-export const priceAdapter = (value?: number | null, options?: Options) => {
+export const priceAdapter = (value?: number | "-" | null, options?: Options) => {
   const { currency, local, style } = {
     ...defaultOptions,
     ...options,
   };
+
+  if (value === "-") {
+    const parts = new Intl.NumberFormat(local, { currency, style: "currency" }).formatToParts(0);
+    const currencySymbol = parts.find((part) => part.type === "currency")?.value || currency;
+    return `-${currencySymbol}`;
+  }
 
   if (!value) {
     return new Intl.NumberFormat(local, {
@@ -32,9 +38,7 @@ export const priceAdapter = (value?: number | null, options?: Options) => {
     }).format(0);
   }
 
-  // Check if the value is an integer
   const isInteger = Number.isInteger(value);
-
   const formatOptions = {
     currency,
     maximumFractionDigits: isInteger ? 0 : 2,
@@ -42,7 +46,7 @@ export const priceAdapter = (value?: number | null, options?: Options) => {
     style,
   };
 
-  return new Intl.NumberFormat(local, formatOptions).format(value);
+  return new Intl.NumberFormat(local, formatOptions).format(Number(value));
 };
 
 export default priceAdapter;

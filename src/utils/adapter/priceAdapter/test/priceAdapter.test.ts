@@ -31,4 +31,9 @@ describe("priceAdapter", () => {
     const price = priceAdapter(1000.0);
     expect(price).toBe("1 000 €");
   });
+
+  test('with "-" value', () => {
+    const price = priceAdapter("-");
+    expect(price).toBe("-€");
+  });
 });
