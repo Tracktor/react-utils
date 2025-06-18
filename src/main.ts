@@ -59,3 +59,5 @@ export { default as isDeepEqualObject } from "@/utils/object/isDeepEqualObject";
 export * from "@/utils/object/isDeepEqualObject";
 export { default as toNumberOrZero } from "@/utils/number/toNumber/toNumberOrZero";
 export * from "@/utils/number/toNumber/toNumberOrZero";
+export { default as getObjectValue } from "@/utils/object/getObjectValue/getObjectValue";
+export * from "@/utils/object/getObjectValue/getObjectValue";

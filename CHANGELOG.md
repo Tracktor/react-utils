@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/react-utils/releases)
 
-## v1.22.3
-- **[fix]** : priceAdapter allow "-"
+## v1.23.0
+- **[feat]** : add util function `getObjectValue`
