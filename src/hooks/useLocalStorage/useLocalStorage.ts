@@ -48,7 +48,7 @@ const useLocalStorage = <T>(key: string, initialValue?: T, options?: UseLocalSto
 
     try {
       const raw = window.localStorage.getItem(key);
-      return raw ? deserializer(raw) : initialValue ?? (null as T);
+      return raw ? deserializer(raw) : (initialValue ?? (null as T));
     } catch {
       return initialValue ?? (null as T);
     }

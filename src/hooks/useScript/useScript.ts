@@ -19,7 +19,7 @@ const useScript = (src: string, options?: UseScriptOptions): UseScriptStatus => 
 
   useEffect(
     () => {
-      if (!src || !enable) {
+      if (!(src && enable)) {
         setStatus("idle");
         return undefined;
       }
@@ -28,7 +28,10 @@ const useScript = (src: string, options?: UseScriptOptions): UseScriptStatus => 
       // It may have been added by another instance of this hook
       let script: UseScriptScriptElement = document.querySelector(`script[src="${src}"]`);
 
-      if (!script) {
+      if (script) {
+        // Grab existing script status from attribute and set to state.
+        setStatus(script.getAttribute("data-status") as UseScriptStatus);
+      } else {
         // Create script
         script = document.createElement("script");
         script.src = src;
@@ -57,9 +60,6 @@ const useScript = (src: string, options?: UseScriptOptions): UseScriptStatus => 
 
         script.addEventListener("load", setAttributeFromEvent);
         script.addEventListener("error", setAttributeFromEvent);
-      } else {
-        // Grab existing script status from attribute and set to state.
-        setStatus(script.getAttribute("data-status") as UseScriptStatus);
       }
 
       // Script event handler to update status in state

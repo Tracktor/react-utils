@@ -12,7 +12,7 @@ type Delay = number;
  * @param value
  * @param delayOrOptions
  */
-const useDebounce = <T extends any>(value: T, delayOrOptions?: Delay | Options): T => {
+const useDebounce = <T>(value: T, delayOrOptions?: Delay | Options): T => {
   const isNumberOption = typeof delayOrOptions === "number";
   const onDebounceRef = useRef(isNumberOption ? undefined : delayOrOptions?.onDebounce);
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
