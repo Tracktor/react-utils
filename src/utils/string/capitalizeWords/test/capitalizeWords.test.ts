@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import capitalizeWords from "../capitalizeWords";
 
 describe("capitalizeWords", () => {
@@ -27,7 +27,6 @@ describe("capitalizeWords", () => {
   });
 
   it("should return an empty string if input is not a string", () => {
-    // @ts-ignore
     expect(capitalizeWords(123)).toBe("");
     expect(capitalizeWords(undefined)).toBe("");
     expect(capitalizeWords(null)).toBe("");

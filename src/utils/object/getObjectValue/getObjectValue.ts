@@ -23,12 +23,7 @@ export function getObjectValue<T = unknown>(obj: unknown, key: string, defaultVa
 
   const result = key.split(".").reduce((current: unknown, prop: string): unknown => {
     // Early return if a path already invalid or current is not a valid object
-    if (
-      current === PATH_NOT_FOUND ||
-      typeof current !== "object" ||
-      current === null ||
-      !Object.prototype.hasOwnProperty.call(current, prop)
-    ) {
+    if (current === PATH_NOT_FOUND || typeof current !== "object" || current === null || !Object.hasOwn(current, prop)) {
       return PATH_NOT_FOUND;
     }
 
