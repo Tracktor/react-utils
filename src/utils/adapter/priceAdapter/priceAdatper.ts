@@ -1,10 +1,10 @@
 interface Options {
   local?: string;
   currency?: string;
-  style?: string;
+  style?: Intl.NumberFormatOptions["style"];
 }
 
-const defaultOptions = {
+const defaultOptions: Required<Options> = {
   currency: "EUR",
   local: "fr-FR",
   style: "currency",
@@ -14,14 +14,9 @@ const defaultOptions = {
  * Adapt price to local display format
  * exemple: priceAdapter(1000) -> 1 000 €
  * exemple: priceAdapter(1000.5) -> 1 000,50 €
- * @param value
- * @param options @default { local: "fr-FR", currency: "EUR", style: "currency" }
  */
 export const priceAdapter = (value?: number | "-" | null, options?: Options) => {
-  const { currency, local, style } = {
-    ...defaultOptions,
-    ...options,
-  };
+  const { currency, local, style } = { ...defaultOptions, ...options };
 
   if (value === "-") {
     const parts = new Intl.NumberFormat(local, { currency, style: "currency" }).formatToParts(0);
@@ -29,7 +24,7 @@ export const priceAdapter = (value?: number | "-" | null, options?: Options) => 
     return `-${currencySymbol}`;
   }
 
-  if (!value) {
+  if (value == null) {
     return new Intl.NumberFormat(local, {
       currency,
       maximumFractionDigits: 0,
@@ -39,7 +34,7 @@ export const priceAdapter = (value?: number | "-" | null, options?: Options) => 
   }
 
   const isInteger = Number.isInteger(value);
-  const formatOptions = {
+  const formatOptions: Intl.NumberFormatOptions = {
     currency,
     maximumFractionDigits: isInteger ? 0 : 2,
     minimumFractionDigits: isInteger ? 0 : 2,
