@@ -1,7 +1,7 @@
 {
   "name": "@tracktor/react-utils",
   "description": "React data table and react data grid",
-  "version": "1.24.1",
+  "version": "1.24.2",
   "private": false,
   "license": "ISC",
   "type": "module",
@@ -27,14 +27,14 @@
     }
   },
   "scripts": {
-    "coverage": "vitest run --coverage",
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "lint": "biome check --diagnostic-level=error . && tsc --noEmit --incremental",
-    "lint:fix": "biome check . --write",
-    "preview": "vite preview",
-    "test": "vitest",
-    "prepare": "yarn run build && husky install"
+    "coverage": "bunx vitest run --coverage",
+    "dev": "bunx vite",
+    "build": "bunx tsc && bunx vite build",
+    "lint": "bunx biome check --diagnostic-level=error . && bunx tsc --noEmit --incremental",
+    "lint:fix": "bunx biome check . --write",
+    "preview": "bunx vite preview",
+    "test": "bunx vitest",
+    "prepare": "bun run build && bunx husky install"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.17.0",
