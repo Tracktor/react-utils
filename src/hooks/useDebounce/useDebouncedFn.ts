@@ -19,7 +19,7 @@ import { useCallback, useEffect, useRef } from "react";
  * // Will only execute after user stops typing for 500ms
  * debouncedSearch(inputValue);
  */
-const useDebouncedCallback = <T extends (...args: never[]) => unknown>(callback: T, delay = 300): ((...args: Parameters<T>) => void) => {
+const useDebouncedFn = <T extends (...args: never[]) => unknown>(callback: T, delay = 300): ((...args: Parameters<T>) => void) => {
   // Store the latest callback to avoid stale closures
   const callbackRef = useRef(callback);
   callbackRef.current = callback;
@@ -55,4 +55,4 @@ const useDebouncedCallback = <T extends (...args: never[]) => unknown>(callback:
   return debouncedCallback;
 };
 
-export default useDebouncedCallback;
+export default useDebouncedFn;
