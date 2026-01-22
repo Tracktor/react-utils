@@ -2,6 +2,8 @@
 
 export * from "@/hooks/useDebounce/useDebounce";
 export { default as useDebounce } from "@/hooks/useDebounce/useDebounce";
+export * from "@/hooks/useDebounce/useDebouncedFn";
+export { default as useDebouncedFn } from "@/hooks/useDebounce/useDebouncedFn";
 export * from "@/hooks/useDocumentTitle/useDocumentTitle";
 export { default as useDocumentTitle } from "@/hooks/useDocumentTitle/useDocumentTitle";
 export * from "@/hooks/useEventListener/useEventListener";

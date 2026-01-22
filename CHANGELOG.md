@@ -1,4 +1,4 @@
 # [Versions](https://github.com/Tracktor/react-utils/releases)
 
-## v1.24.2
-- **[chore]** : Migrate to Bun & GH Actions for CI/CD workflows.
+## v1.25.0
+- **[feat]** : Add `useDebouncedFn` hook for creating debounced functions in React components. (#123)
