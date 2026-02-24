@@ -36,4 +36,24 @@ describe("formatCreditCardNumber", () => {
     const initial = getInitials({ firstName: "john", lastName: "doe" }, false);
     expect(initial).toBe("jd");
   });
+
+  test("with single word full name", () => {
+    const initial = getInitials({ fullName: "Loxam" });
+    expect(initial).toEqual("L");
+  });
+
+  test("with string parameter", () => {
+    const initial = getInitials("John Doe");
+    expect(initial).toEqual("JD");
+  });
+
+  test("with single word string parameter", () => {
+    const initial = getInitials("Loxam");
+    expect(initial).toEqual("L");
+  });
+
+  test("with string parameter and capitalize", () => {
+    const initial = getInitials("john doe", true);
+    expect(initial).toBe("JD");
+  });
 });

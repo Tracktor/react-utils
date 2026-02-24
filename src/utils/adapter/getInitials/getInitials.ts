@@ -1,3 +1,5 @@
+import isString from "@/utils/is/isString/isString";
+
 interface getInitialParamsWithFullName {
   firstName?: never;
   lastName?: never;
@@ -29,6 +31,7 @@ interface getInitialParamsWithNoName {
 }
 
 type getInitialParams =
+  | string
   | getInitialParamsWithFullName
   | getInitialParamsWithFirstAndLastName
   | getInitialParamsWithFirstNameOnly
@@ -41,11 +44,15 @@ type getInitialParams =
  * @param capitalize
  */
 export const getInitials = (name: getInitialParams, capitalize?: boolean): string => {
-  const [firstName, lastName] = name.fullName ? name.fullName.split(" ") : [name.firstName || "", name.lastName || ""];
+  const [firstName = "", lastName = ""] = isString(name)
+    ? name.split(" ")
+    : name.fullName
+      ? name.fullName.split(" ")
+      : [name.firstName || "", name.lastName || ""];
 
   return capitalize
-    ? `${firstName?.charAt(0).toUpperCase()}${lastName?.charAt(0).toUpperCase()}`
-    : `${firstName?.charAt(0)}${lastName?.charAt(0)}`;
+    ? `${firstName.charAt(0).toUpperCase()}${lastName.charAt(0).toUpperCase()}`
+    : `${firstName.charAt(0)}${lastName.charAt(0)}`;
 };
 
 export default getInitials;
