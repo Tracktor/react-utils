@@ -1,5 +1,7 @@
 // Hook
 
+export * from "@/hooks/useAudio/useAudio";
+export { default as useAudio } from "@/hooks/useAudio/useAudio";
 export * from "@/hooks/useDebounce/useDebounce";
 export { default as useDebounce } from "@/hooks/useDebounce/useDebounce";
 export * from "@/hooks/useDebounce/useDebouncedFn";

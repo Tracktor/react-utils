@@ -8,6 +8,9 @@
 ## 📦 Installation
 
 ```bash
+# bun
+bun add @tracktor/react-utils
+
 # npm
 npm install @tracktor/react-utils
 
@@ -98,6 +101,26 @@ const debouncedValue = useDebounce(inputValue, {
   onDebounce: (value) => console.log('Debounced:', value)
 });
 ```
+
+---
+
+#### `useDebouncedFn(callback, delay?)`
+Creates a debounced version of a callback function.
+
+```typescript
+const debouncedSearch = useDebouncedFn((query: string) => {
+  fetchSearchResults(query);
+}, 500);
+
+// Will only execute after user stops typing for 500ms
+debouncedSearch(inputValue);
+```
+
+**Parameters:**
+- `callback`: The function to debounce
+- `delay`: Delay in milliseconds (default: `300`)
+
+**Returns:** A debounced version of the callback
 
 ---
 
@@ -216,15 +239,48 @@ useEffect(() => {
 
 ---
 
-#### `useEventCallback(fn)`
-Ensures callback stability while maintaining current references.
+#### `useIsomorphicLayoutEffect(effect, deps?)`
+SSR-safe version of `useLayoutEffect` that falls back to `useEffect` on the server.
 
 ```typescript
-const handleClick = useEventCallback((id) => {
-  // This callback is stable but has access to current state
-  onItemClick(id, currentState);
-});
+useIsomorphicLayoutEffect(() => {
+  // Runs synchronously after DOM mutations on client
+  // Falls back to useEffect on server
+  measureElement();
+}, [dependency]);
 ```
+
+---
+
+#### `useAudio(src, options?)`
+Manages audio playback with full control over play, pause, volume, and progress tracking.
+
+```typescript
+const [time, setTime] = useState(0);
+const [duration, setDuration] = useState(0);
+
+const { isPlaying, volume, play, pause, toggle, stop, setVolume } = useAudio('/audio/song.mp3', {
+  volume: 0.8,
+  loop: true,
+  autoPlay: false,
+  onTimeUpdate: setTime,
+  onLoadedMetadata: setDuration,
+});
+
+<button onClick={toggle}>{isPlaying ? 'Pause' : 'Play'}</button>
+<span>{time}s / {duration}s</span>
+<input type="range" min={0} max={1} step={0.1} value={volume} onChange={(e) => setVolume(Number(e.target.value))} />
+```
+
+**Parameters:**
+- `src`: Audio source URL
+- `options.volume`: Initial volume from 0 to 1 (default: `1`)
+- `options.loop`: Loop playback (default: `false`)
+- `options.autoPlay`: Auto-play on load (default: `false`)
+- `options.onTimeUpdate`: Callback fired with current playback time in seconds
+- `options.onLoadedMetadata`: Callback fired with total duration in seconds when metadata is loaded
+
+**Returns:** `{ isPlaying, volume, error, play, pause, toggle, stop, setVolume }`
 
 ### 🛠️ Utilities
 
@@ -247,13 +303,18 @@ if (isObject(value)) {
 #### Object Manipulation
 
 ```typescript
-import { removeObjectProperty, isDeepEqualObject } from '@tracktor/react-utils';
+import { removeObjectProperty, isDeepEqualObject, getObjectValue } from '@tracktor/react-utils';
 
 // Remove property without mutation
 const newObj = removeObjectProperty(originalObj, 'propertyToRemove');
 
 // Deep comparison of objects
 const areEqual = isDeepEqualObject(obj1, obj2);
+
+// Get nested value with dot notation
+const obj = { car: { color: { black: 'dark' } } };
+getObjectValue(obj, 'car.color.black');              // "dark"
+getObjectValue(obj, 'car.color.red', 'not found');   // "not found"
 ```
 
 #### String Manipulation
@@ -358,6 +419,9 @@ addressToString({ city: 'Paris', country: 'France' }); // "Paris, France"
 Extracts initials from a name.
 
 ```typescript
+// With a string
+getInitials('John Doe');                                    // "JD"
+
 // With first and last name
 getInitials({ firstName: 'John', lastName: 'Doe' });        // "JD"
 
@@ -539,13 +603,13 @@ The library is fully tested with Vitest. To run tests:
 
 ```bash
 # Unit tests
-yarn test
+bun run test
 
 # Coverage report
-yarn coverage
+bun run coverage
 
 # Lint code
-yarn lint
+bun run lint
 ```
 
 ## 🛡️ TypeScript Support
