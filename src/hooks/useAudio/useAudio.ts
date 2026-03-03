@@ -158,7 +158,17 @@ const useAudio = (src: string, options?: UseAudioOptions): UseAudioReturn => {
   );
 
   const play = useCallback(() => {
-    audioRef.current?.play().catch((err) => {
+    const audio = audioRef.current;
+
+    if (!audio) {
+      return;
+    }
+
+    if (!audio.paused) {
+      audio.currentTime = 0;
+    }
+
+    audio.play().catch((err) => {
       setError(err instanceof Error ? err.message : "Play was prevented");
     });
   }, []);
