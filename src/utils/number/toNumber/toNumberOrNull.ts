@@ -4,7 +4,13 @@
  * @param value
  */
 const toNumberOrNull = (value: unknown): number | null => {
-  if (value === null || value === undefined || typeof value === "boolean" || typeof value === "object") {
+  if (
+    value === null ||
+    value === undefined ||
+    typeof value === "boolean" ||
+    typeof value === "object" ||
+    (typeof value === "string" && value.trim() === "")
+  ) {
     return null;
   }
 

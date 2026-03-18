@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import toNumberOrZero from "./toNumberOrZero";
 
 describe("toNumberOrZero", () => {
-  it("devrait retourner un nombre pour les valeurs numériques", () => {
+  it("should return a number for numeric values", () => {
     expect(toNumberOrZero(42)).toBe(42);
     expect(toNumberOrZero("42")).toBe(42);
     expect(toNumberOrZero(0)).toBe(0);
@@ -13,7 +13,7 @@ describe("toNumberOrZero", () => {
     expect(toNumberOrZero("3.14")).toBe(3.14);
   });
 
-  it("devrait retourner 0 pour les valeurs non numériques", () => {
+  it("should return 0 for non-numeric values", () => {
     expect(toNumberOrZero("abc")).toBe(0);
     expect(toNumberOrZero(null)).toBe(0);
     expect(toNumberOrZero(undefined)).toBe(0);
@@ -22,5 +22,8 @@ describe("toNumberOrZero", () => {
     expect(toNumberOrZero(NaN)).toBe(0);
     expect(toNumberOrZero(true)).toBe(0);
     expect(toNumberOrZero(false)).toBe(0);
+    expect(toNumberOrZero("")).toBe(0);
+    expect(toNumberOrZero(" ")).toBe(0);
+    expect(toNumberOrZero("  ")).toBe(0);
   });
 });
