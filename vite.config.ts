@@ -1,7 +1,7 @@
 import { resolve } from "path";
 import react from "@vitejs/plugin-react";
 import { defineConfig, UserConfig as UserConfigVite } from "vite";
-import dts from "vite-plugin-dts";
+import dts from "unplugin-dts/vite";
 import { UserConfig as InlineConfigVitest } from "vitest/config";
 import { name, peerDependencies } from "./package.json";
 
@@ -16,7 +16,7 @@ const config: UserConfig = {
       fileName: "[name]",
       name,
     },
-    rollupOptions: {
+    rolldownOptions: {
       external: [...Object.keys(peerDependencies)],
       output: {
         globals: {
