@@ -17,7 +17,7 @@ const config: UserConfig = {
       name,
     },
     rolldownOptions: {
-      external: [...Object.keys(peerDependencies)],
+      external: [...Object.keys(peerDependencies), "react/jsx-runtime", "react/jsx-dev-runtime"],
       output: {
         globals: {
           react: "React",
