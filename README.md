@@ -337,6 +337,17 @@ toNumberOrZero(null);    // 0
 toNumberOrZero(true);    // 0 (booleans return 0)
 ```
 
+#### Platform Detection
+
+```typescript
+import { isMac } from '@tracktor/react-utils';
+
+// Detects macOS at runtime (SSR-safe: returns false on the server)
+const shortcut = isMac() ? '⌘ + K' : 'Ctrl + K';
+```
+
+**Returns:** `boolean` — `true` when running on macOS, `false` otherwise.
+
 ### 🔄 Adapters
 
 #### `phoneNumberAdapter(phoneNumber, options?)`

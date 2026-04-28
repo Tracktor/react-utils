@@ -1,6 +1,6 @@
 # [Versions](https://github.com/Tracktor/react-utils/releases)
 
-## v1.28.3
+## v1.29.0
 
-### Chore
-- Update TypeScript configuration and dependencies for improved compatibility
+### Feat
+- Add isMac utility function for platform detection

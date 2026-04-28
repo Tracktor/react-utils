@@ -60,6 +60,8 @@ export * from "@/utils/object/isDeepEqualObject";
 export { default as isDeepEqualObject } from "@/utils/object/isDeepEqualObject";
 export * from "@/utils/object/removeObjectProperty";
 export { default as removeObjectProperty } from "@/utils/object/removeObjectProperty";
+export * from "@/utils/platform/isMac";
+export { default as isMac } from "@/utils/platform/isMac";
 export * from "@/utils/string/capitalize";
 export { default as capitalize } from "@/utils/string/capitalize";
 export * from "@/utils/string/capitalizeWords";
