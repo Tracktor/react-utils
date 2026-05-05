@@ -56,4 +56,34 @@ describe("formatCreditCardNumber", () => {
     const initial = getInitials("john doe", true);
     expect(initial).toBe("JD");
   });
+
+  test("with null parameter", () => {
+    const initial = getInitials(null);
+    expect(initial).toBe("");
+  });
+
+  test("with undefined parameter", () => {
+    const initial = getInitials(undefined);
+    expect(initial).toBe("");
+  });
+
+  test("with empty string parameter", () => {
+    const initial = getInitials("");
+    expect(initial).toBe("");
+  });
+
+  test("with null firstName and lastName", () => {
+    const initial = getInitials({ firstName: null, lastName: null });
+    expect(initial).toBe("");
+  });
+
+  test("with null fullName", () => {
+    const initial = getInitials({ fullName: null });
+    expect(initial).toBe("");
+  });
+
+  test("with null firstName and valid lastName", () => {
+    const initial = getInitials({ firstName: null, lastName: "Doe" });
+    expect(initial).toBe("D");
+  });
 });

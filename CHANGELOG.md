@@ -1,6 +1,6 @@
 # [Versions](https://github.com/Tracktor/react-utils/releases)
 
-## v1.29.0
+## v1.30.0
 
 ### Feat
-- Add isMac utility function for platform detection
+- Enhance getInitials function to handle null, undefined, and empty string inputs

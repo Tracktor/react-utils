@@ -3,24 +3,24 @@ import isString from "@/utils/is/isString/isString";
 interface getInitialParamsWithFullName {
   firstName?: never;
   lastName?: never;
-  fullName: string;
+  fullName: string | null;
 }
 
 interface getInitialParamsWithFirstAndLastName {
-  firstName: string | undefined;
-  lastName: string | undefined;
+  firstName: string | null | undefined;
+  lastName: string | null | undefined;
   fullName?: never;
 }
 
 interface getInitialParamsWithFirstNameOnly {
-  firstName: string | undefined;
-  lastName?: string | undefined;
+  firstName: string | null | undefined;
+  lastName?: string | null | undefined;
   fullName?: never;
 }
 
 interface getInitialParamsWithLastNameOnly {
-  firstName?: string | undefined;
-  lastName: string | undefined;
+  firstName?: string | null | undefined;
+  lastName: string | null | undefined;
   fullName?: never;
 }
 
@@ -32,6 +32,8 @@ interface getInitialParamsWithNoName {
 
 type getInitialParams =
   | string
+  | null
+  | undefined
   | getInitialParamsWithFullName
   | getInitialParamsWithFirstAndLastName
   | getInitialParamsWithFirstNameOnly
@@ -44,6 +46,10 @@ type getInitialParams =
  * @param capitalize
  */
 export const getInitials = (name: getInitialParams, capitalize?: boolean): string => {
+  if (!name) {
+    return "";
+  }
+
   const [firstName = "", lastName = ""] = isString(name)
     ? name.split(" ")
     : name.fullName
